@@ -1,4 +1,4 @@
-#include"addition.hpp"
+#include"arithmetic.hpp"
 int main()
 {
     number a,b;
@@ -13,7 +13,8 @@ int main()
     b.mini_power=-1;
 
     number ans = add(a,b);
-    for(auto x:ans.digits)
+    number ans2 = sub(a,b);
+    for(auto x:ans2.digits)
     {
         cout<<x<<" ";
     }

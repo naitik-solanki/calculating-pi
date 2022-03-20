@@ -9,3 +9,4 @@ class number
     
 };
 number add(number &a,number&b);
+number sub(number &a,number &b);
