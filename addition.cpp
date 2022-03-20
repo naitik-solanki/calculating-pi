@@ -1,53 +1,48 @@
 #include"addition.hpp"
-vector<number> add(vector<number> &a,vector<number> &b)
+number add(number &a,number &b)
 {
-    vector<number>final;
-    int carry=0;
-    int p=0,q=0;
-    number cur;
-    for(;p<a.size() && q<b.size();)
+
+   if(a.mini_power!=b.mini_power)
     {
-        if(a[p].power==b[q].power)
-        {
-            cur.digit=((a[p].digit+b[q].digit+carry)%base);
-            carry = (a[p].digit+b[q].digit+carry)/base;
-            cur.power=a[p].power;
-            p++;
-            q++;
-            final.push_back(cur);
-        }
-        else if(a[p].power<b[q].power)
-        {
-            cur.digit=((a[p].digit+carry)%256);
-            carry = (a[p].digit+carry)/256;
-            cur.power=a[p].power;
-            p++;
-            final.push_back(cur);
-        }
-        else
-        {
-            cur.digit=((b[q].digit+carry)%base);
-            carry = (b[q].digit+carry)/base;
-            cur.power=b[q].power;
-            q++;
-            final.push_back(cur);
-        }
+       if(a.mini_power>b.mini_power)
+       {
+            for(int i=0;i<a.mini_power-b.mini_power;i++)
+            {
+                a.digits.push_back(0);
+                a.mini_power--;
+            }    
+       }
+       else
+       {
+            for(int i=0;i<b.mini_power-a.mini_power;i++)
+            {
+                b.digits.push_back(0);
+                b.mini_power--;
+            }  
+       }
     }
-    while(p!=a.size())
+    number ans;
+    ans.mini_power=a.mini_power;
+    int carry = 0;
+    int p=a.digits.size()-1,q=b.digits.size()-1;
+    for(;p>=0,q>=0;p--,q--)
     {
-        cur.digit=((a[p].digit+carry)%base);
-        carry = (a[p].digit+carry)/base;
-        cur.power=a[p].power;
-        p++;
-        final.push_back(cur);
+        cout<<a.digits[p]<<' '<<b.digits[q]<<" "<<endl;
+        ans.digits.push_back((a.digits[p]+b.digits[q]+carry)%base);
+        carry = (a.digits[p]+b.digits[q]+carry)/base;
     }
-    while(q!=b.size())
+    while(p!=-1)
     {
-        cur.digit=((b[q].digit+carry)%base);
-        carry = (b[q].digit+carry)/base;
-        cur.power=b[q].power;
-        q++;
-        final.push_back(cur);
+        ans.digits.push_back((a.digits[p]+carry)%base);
+        carry = (a.digits[p]+carry)/base;
+        p--;
     }
-    return final;
+    while(q!=-1)
+    {
+        ans.digits.push_back((b.digits[q]+carry)%base);
+        carry = (b.digits[q]+carry)/base;
+        q--;
+    }
+    reverse(ans.digits.begin(),ans.digits.end());
+    return ans;
 }

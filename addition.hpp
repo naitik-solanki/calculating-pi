@@ -4,8 +4,8 @@ using namespace std;
 class number
 {
     public:
-    int digit;
-    int power;
+    vector<int>digits;
+    int mini_power;
     
 };
-vector<number> add(vector<number> &a,vector<number> &b);
+number add(number &a,number&b);

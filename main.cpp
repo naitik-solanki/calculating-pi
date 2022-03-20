@@ -1,54 +1,21 @@
 #include"addition.hpp"
 int main()
 {
-    vector<number>a;
-    vector<number>b;
-    number temp;
-    temp.digit=247;
-    temp.power=-4;
-    a.push_back(temp);
-    temp.digit=145;
-    temp.power++;
-    a.push_back(temp);
-    temp.digit=251;
-    temp.power++;
-    a.push_back(temp);
-    temp.digit=192;
-    temp.power++;
-    a.push_back(temp);
-    temp.digit=190;
-    temp.power++;
-    a.push_back(temp);
-    temp.digit=101;
-    temp.power++;
-    a.push_back(temp);
+    number a,b;
+    a.digits.push_back(2);
+    a.digits.push_back(3);
+    a.digits.push_back(4);
 
-    
+    b.digits.push_back(2);
+    b.digits.push_back(1);
 
+    a.mini_power=-1;
+    b.mini_power=-1;
 
-    temp.digit=211;
-    temp.power=-2;
-    b.push_back(temp);
-    temp.digit=125;
-    temp.power++;
-    b.push_back(temp);
-    temp.digit=236;
-    temp.power++;
-    b.push_back(temp);
-    temp.digit=134;
-    temp.power++;
-    b.push_back(temp);
-    temp.digit=211;
-    temp.power++;
-    b.push_back(temp);
-    temp.digit=11;
-    temp.power++;
-    b.push_back(temp);
-
-    vector<number> t=add(a,b);
-    for(auto x:t)
+    number ans = add(a,b);
+    for(auto x:ans.digits)
     {
-        cout<<x.digit<<' ';
+        cout<<x<<" ";
     }
     cout<<endl;
 }
