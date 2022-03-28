@@ -23,29 +23,29 @@ ll equal_Length(number &num1, number &num2)
 	return(len2);
 }
 
-ll equal_Mini_Power(number &a, number &b)
-{
-	if(a.mini_power!=b.mini_power)
-    {
-       if(a.mini_power>b.mini_power)
-       {
-            for(int i=0;i<a.mini_power-b.mini_power;i++)
-            {
-                a.digits.push_back(0);
-                a.mini_power--;
-            }    
-       }
-       else
-       {
-            for(int i=0;i<b.mini_power-a.mini_power;i++)
-            {
-                b.digits.push_back(0);
-                b.mini_power--;
-            }  
-       }
-    }
-	return(a.mini_power);
-}
+// ll equal_Mini_Power(number &a, number &b)
+// {
+// 	if(a.mini_power!=b.mini_power)
+//     {
+//        if(a.mini_power>b.mini_power)
+//        {
+//             for(int i=0;i<a.mini_power-b.mini_power;i++)
+//             {
+//                 a.digits.push_back(0);
+//                 a.mini_power--;
+//             }    
+//        }
+//        else
+//        {
+//             for(int i=0;i<b.mini_power-a.mini_power;i++)
+//             {
+//                 b.digits.push_back(0);
+//                 b.mini_power--;
+//             }  
+//        }
+//     }
+// 	return(a.mini_power);
+// }
 
 number multiply_Singlenum(number num1, number num2) //Arguments wll contain only single entry
 {
@@ -58,8 +58,8 @@ number multiply_Singlenum(number num1, number num2) //Arguments wll contain only
 
 number multiply_Karatsuba(number X, number Y)
 {
-	//Making the vectors of equal length and minipowers
-	int power = equal_Mini_Power(X, Y);
+	//Making the vectors of equal length
+	//int power = equal_Mini_Power(X, Y);
 	int n = equal_Length(X, Y);
 	number ans;
 
@@ -67,7 +67,7 @@ number multiply_Karatsuba(number X, number Y)
     if(n == 0)
 	{
 		ans.digits.push_back(0);
-		ans.mini_power = power;
+		ans.mini_power = 0;
 		return(ans);
 	}
     if (n == 1) return multiply_Singlenum(X, Y);
@@ -94,10 +94,9 @@ number multiply_Karatsuba(number X, number Y)
     number Q = multiply_Karatsuba(second_halfX, second_halfY);
     number R = multiply_Karatsuba(add(first_halfX, second_halfX), add(first_halfY, second_halfY));
     
-    //Forming the answer.. by appending to the ans vector
-	ans.digits = P.digits;
-	ans.digits.insert(ans.digits.end(), R.digits.begin(), R.digits.end());
-	ans.digits.insert(ans.digits.end(), Q.digits.begin(), Q.digits.end());
-	ans.mini_power = P.mini_power; //Q and R's minipower would've worked too...
+    //Forming the answer.... by P*B^2m + R*B^m + Q ...
+	P.mini_power = P.mini_power + 2*split;
+	R.mini_power = R.mini_power + split;
+	ans = add(add(Q, R), P);
 	return(ans);
 }
