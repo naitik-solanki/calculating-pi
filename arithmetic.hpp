@@ -1,6 +1,10 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+//#include<algorithm>
+#include<iterator>
 using namespace std;
 #define base 256
+typedef long long ll;
 class number
 {
     public:
@@ -10,3 +14,4 @@ class number
 };
 number add(number &a,number&b);
 number sub(number &a,number &b);
+number multiply_karatsuba(number &a,number &b);
