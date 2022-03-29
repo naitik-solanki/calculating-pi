@@ -23,34 +23,13 @@ ll equal_Length(number &num1, number &num2)
 	return(len2);
 }
 
-// ll equal_Mini_Power(number &a, number &b)
-// {
-// 	if(a.mini_power!=b.mini_power)
-//     {
-//        if(a.mini_power>b.mini_power)
-//        {
-//             for(int i=0;i<a.mini_power-b.mini_power;i++)
-//             {
-//                 a.digits.push_back(0);
-//                 a.mini_power--;
-//             }    
-//        }
-//        else
-//        {
-//             for(int i=0;i<b.mini_power-a.mini_power;i++)
-//             {
-//                 b.digits.push_back(0);
-//                 b.mini_power--;
-//             }  
-//        }
-//     }
-// 	return(a.mini_power);
-// }
-
 number multiply_Singlenum(number num1, number num2) //Arguments wll contain only single entry
 {
 	number ans;
-	ans.digits.push_back((num1.digits[0] * num2.digits[0])/base);
+	if((num1.digits[0] * num2.digits[0])/base != 0)
+	{
+		ans.digits.push_back((num1.digits[0] * num2.digits[0])/base);
+	}
 	ans.digits.push_back((num1.digits[0] * num2.digits[0])%base);
 	ans.mini_power = num1.mini_power + num2.mini_power;
 	return(ans);
@@ -62,7 +41,6 @@ number multiply_Karatsuba(number X, number Y)
 	//int power = equal_Mini_Power(X, Y);
 	int n = equal_Length(X, Y);
 	number ans;
-
     //Base cases
     if(n == 0)
 	{
@@ -72,31 +50,113 @@ number multiply_Karatsuba(number X, number Y)
 	}
     if (n == 1) return multiply_Singlenum(X, Y);
 
-    //Splitting the number into two
-	int split = n/2;   
+    // for(auto x:X.digits)
+    // {
+    //     cout<<x<<" ";
+    // }
+    // cout<<endl;
+	//Splitting the number into two
+	int split;
+	if(n%2 == 1)	split = (n+1)/2;
+	else	split = (n)/2; 
+	// cout << "Split - " << split << endl;
 	number first_halfX, second_halfX;
+	
 	first_halfX.mini_power = X.mini_power;
 	second_halfX.mini_power = X.mini_power;
-	auto it = next(X.digits.begin(), split - 1);
-	copy(X.digits.begin(), it, back_inserter(first_halfX.digits));
-	it++;
-	copy(it, X.digits.end(), back_inserter(second_halfX.digits));
+	for(ll i=0;i<split;i++)
+	{
+		first_halfX.digits.push_back(X.digits[i]);
+	}
+	for(ll i=split;i<n;i++)
+	{
+		second_halfX.digits.push_back(X.digits[i]);
+	}
+	// first_halfX.digits.assign(X.digits.begin(), X.digits.begin() + split);
+	// second_halfX.digits.assign(X.digits.begin() + split, X.digits.end());
 
 	number first_halfY, second_halfY;
 	first_halfY.mini_power = Y.mini_power;
 	second_halfY.mini_power = Y.mini_power;
-	it = next(Y.digits.begin(), split - 1);
-	copy(Y.digits.begin(), it, back_inserter(first_halfY.digits));
-	it++;
-	copy(it, Y.digits.end(), back_inserter(second_halfY.digits));
+	for(ll i=0;i<split;i++)
+	{
+		first_halfY.digits.push_back(Y.digits[i]);
+	}
+	for(ll i=split;i<n;i++)
+	{
+		second_halfY.digits.push_back(Y.digits[i]);
+	}
+	// first_halfY.digits.assign(Y.digits.begin(), Y.digits.begin() + split);
+	// second_halfY.digits.assign(Y.digits.begin() + split , Y.digits.end());
 
+	// cout<<"First half of X ";
+	// for(auto x:first_halfX.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	// cout<<"Second half of X ";
+	// for(auto x:second_halfX.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	// cout<<"First half of Y ";
+	// for(auto y:first_halfY.digits)
+    // {
+    // 	cout<<y<<" ";
+    // }
+    // cout<<endl;
+	// cout<<"Second half of Y ";
+	// for(auto y:second_halfY.digits)
+    // {
+    // 	cout<<y<<" ";
+    // }
+    // cout<<endl;
 	number P = multiply_Karatsuba(first_halfX, first_halfY);
     number Q = multiply_Karatsuba(second_halfX, second_halfY);
-    number R = multiply_Karatsuba(add(first_halfX, second_halfX), add(first_halfY, second_halfY));
-    
+	number temp1 = add(first_halfX, second_halfX);
+	number temp2 = add(first_halfY, second_halfY);
+    number prod = multiply_Karatsuba(temp1, temp2);
+	// cout<<"prod ";
+	// for(auto x:prod.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	number temp = sub(prod, P);
+	number R = sub(temp, Q);
     //Forming the answer.... by P*B^2m + R*B^m + Q ...
-	P.mini_power = P.mini_power + 2*split;
-	R.mini_power = R.mini_power + split;
-	ans = add(add(Q, R), P);
+	// cout << "Split - " << split << endl;
+	split = n/2;
+	P.mini_power =P.mini_power +  2*split;
+	R.mini_power = R.mini_power + split;	
+	// cout<<P.mini_power<<" "<<R.mini_power<<endl;
+	// cout<<"P ";
+	// for(auto x:P.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	// cout<<"Q ";
+	// for(auto x:Q.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	// cout<<"R ";
+	// for(auto x:R.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	number Z = add(Q, R);
+	// cout << "Z digits ";
+	// for(auto x:Z.digits)
+    // {
+    // 	cout<<x<<" ";
+    // }
+    // cout<<endl;
+	ans = add(Z, P);
 	return(ans);
 }
