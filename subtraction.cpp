@@ -22,6 +22,24 @@ number sub(number a,number b)
     }
     number ans;
     ans.mini_power=a.mini_power;
+    if(a.digits.size()<b.digits.size())
+    {
+        ans=sub(b,a);
+        ans.is_negative=true;
+        return ans;
+    }
+    else if(a.digits.size()==b.digits.size())
+    {
+        for(int i=0;i<a.digits.size();i++)
+        {
+            if(a.digits[i]<b.digits[i])
+            {
+                ans=sub(b,a);
+                ans.is_negative=true;
+                return ans;
+            }
+        }
+    }
     int carry = 0;
     int p=a.digits.size()-1,q=b.digits.size()-1;
     for(;(p>=0)&&(q>=0);p--,q--)

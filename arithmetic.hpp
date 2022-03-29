@@ -1,12 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define base 256
+#define base 10
 typedef long long ll;
 class number
 {
     public:
     vector<int>digits;
     int mini_power;
+    bool is_negative;
     
 };
 number add(number a,number b);
