@@ -158,6 +158,5 @@ number multiply_Karatsuba(number X, number Y)
     // }
     // cout<<endl;
 	ans = add(Z, P);
-	ans.is_negative = (X.is_negative ^ Y.is_negative);
 	return(ans);
 }
