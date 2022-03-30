@@ -28,15 +28,19 @@ number sub(number a,number b)
         ans.is_negative=true;
         return ans;
     }
-    else if(a.digits.size()==b.digits.size())
+    else if(a.digits.size()== b.digits.size())
     {
-        for(int i=0;i<a.digits.size();i++)
+        for(int j=0;j<a.digits.size();j++)
         {
-            if(a.digits[i]<b.digits[i])
+            if(a.digits[j]<b.digits[j])
             {
                 ans=sub(b,a);
                 ans.is_negative=true;
                 return ans;
+            }
+            else if(a.digits[j]>b.digits[j])
+            {
+                break;
             }
         }
     }

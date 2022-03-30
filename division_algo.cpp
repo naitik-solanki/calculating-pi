@@ -58,7 +58,7 @@ pair<ll, ll> quorem(ll a)
 	return(ans);
 }
 
-void long_Division(number X, number Y)
+number long_Division(number X, number Y)
 {
 	ll k = X.digits.size();
 	ll l = Y.digits.size();
@@ -137,6 +137,6 @@ void long_Division(number X, number Y)
 		cout << q.digits[i] << " ";
 	}
 	cout << endl;
-
+	return q;
 	//Shayad Quotient bs chahitye hai... normalization ki wjah se quotient mai koi fark ni aaega
 }

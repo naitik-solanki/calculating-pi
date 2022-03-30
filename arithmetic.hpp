@@ -7,13 +7,14 @@ class number
     public:
     vector<int>digits;
     int mini_power;
-    
+    bool is_negative;
 };
 number add(number a,number b);
 number sub(number a,number b);
 number multiply_Karatsuba(number X, number Y);
-void long_Division(number X, number Y);
+number long_Division(number X, number Y);
 void Normalize(number &X, number &Y);
+number sq_root(number a);
 
 number multiply_Singlenum(number num1, number num2);
 ll equal_Length(number &num1, number &num2);
