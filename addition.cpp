@@ -53,7 +53,7 @@ number add(number a,number b)
     {
         ans.digits.push_back(carry);
     }
-    for(int i=ans.digits.size()-1;i>=0;i--)
+    for(int i=ans.digits.size()-1;i>0;i--)
     {
         if(ans.digits[i]==0)
         {

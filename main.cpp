@@ -32,7 +32,7 @@ int main()
     // // a.mini_power=0;
     // // b.mini_power=0;
     //Normalize(a,b);
-    number ans = sub(a, b);
+    number ans = multiply_Karatsuba(a, b);
     cout<<ans.is_negative<<" ";
     cout << "ans ";
     for(auto x: ans.digits)

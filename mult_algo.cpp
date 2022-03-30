@@ -161,5 +161,15 @@ number multiply_Karatsuba(number X, number Y)
     // }
     // cout<<endl;
 	ans = add(Z, P);
+	reverse(ans.digits.begin(),ans.digits.end());
+	while(ans.digits.size() != 1)
+	{
+		if(ans.digits[ans.digits.size() - 1] == 0)
+		{
+			ans.digits.pop_back();
+		}
+		else	break;
+	}
+	reverse(ans.digits.begin(),ans.digits.end());
 	return(ans);
 }

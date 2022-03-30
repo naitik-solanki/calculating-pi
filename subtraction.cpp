@@ -64,7 +64,7 @@ number sub(number a,number b)
         carry = floor((float)(b.digits[q]+carry)/base);
         q--;
     }
-    for(int i=ans.digits.size()-1;i>=0;i--)
+    for(int i=ans.digits.size()-1;i>0;i--)
     {
         if(ans.digits[i]==0)
         {
