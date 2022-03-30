@@ -41,6 +41,9 @@ number multiply_Karatsuba(number X, number Y)
 	//int power = equal_Mini_Power(X, Y);
 	int n = equal_Length(X, Y);
 	number ans;
+	if(X.is_negative && Y.is_negative)	ans.is_negative = false;
+	else if(X.is_negative || Y.is_negative)	ans.is_negative = true; 
+	else	ans.is_negative = false;
     //Base cases
     if(n == 0)
 	{
@@ -118,9 +121,6 @@ number multiply_Karatsuba(number X, number Y)
 	number temp1 = add(first_halfX, second_halfX);
 	number temp2 = add(first_halfY, second_halfY);
     number prod = multiply_Karatsuba(temp1, temp2);
-	prod.is_negative=false;
-	P.is_negative=false;
-	Q.is_negative=false;
 	// cout<<"prod ";
 	// for(auto x:prod.digits)
     // {
@@ -161,6 +161,5 @@ number multiply_Karatsuba(number X, number Y)
     // }
     // cout<<endl;
 	ans = add(Z, P);
-	//ans.is_negative = (X.is_negative ^ Y.is_negative);
 	return(ans);
 }

@@ -58,6 +58,7 @@ pair<ll, ll> quorem(ll a)
 	return(ans);
 }
 
+//Considering X/Y
 number long_Division(number X, number Y)
 {
 	ll k = X.digits.size();
@@ -77,6 +78,9 @@ number long_Division(number X, number Y)
 	reverse(X.digits.begin(),X.digits.end());
 	reverse(Y.digits.begin(),Y.digits.end());
 	number r, q;
+	r.mini_power = 0;
+	q.mini_power = X.mini_power - Y.mini_power;
+	
 	for(ll i = 0; i<k ; i ++)
 	{
 		r.digits.push_back(X.digits[i]);
@@ -130,13 +134,15 @@ number long_Division(number X, number Y)
 			//cout << "Changed r3 - " << r.digits[i+l] << endl;
 		}
 	}
-	reverse(q.digits.begin(),q.digits.end());
-	cout << "Quotient - ";
-	for(ll i=0;i<q.digits.size();i++)
+	//Removing leading zeroes..
+	while(q.digits.size() != 1)
 	{
-		cout << q.digits[i] << " ";
+		if(q.digits[q.digits.size() - 1] == 0)
+		{
+			q.digits.pop_back();
+		}
+		else	break;
 	}
-	cout << endl;
+	reverse(q.digits.begin(),q.digits.end());
 	return q;
-	//Shayad Quotient bs chahitye hai... normalization ki wjah se quotient mai koi fark ni aaega
 }
