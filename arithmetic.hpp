@@ -12,7 +12,7 @@ class number
 number add(number a,number b);
 number sub(number a,number b);
 number multiply_Karatsuba(number X, number Y);
-number long_Division(number X, number Y);
+number long_Division(number X, number Y,int precision);
 void Normalize(number &X, number &Y);
 number sq_root(number a);
 

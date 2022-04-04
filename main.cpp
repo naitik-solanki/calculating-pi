@@ -2,10 +2,9 @@
 int main()
 {
     number a,b;
-    a.digits.push_back(13);
-    a.digits.push_back(0);
-    b.digits.push_back(12);
-    b.digits.push_back(128);
+    
+    a.digits.push_back(11);
+    b.digits.push_back(3);
     // b.digits.push_back(25);
     a.mini_power=0;
     b.mini_power=0;
@@ -32,9 +31,10 @@ int main()
     // // a.mini_power=0;
     // // b.mini_power=0;
     //Normalize(a,b);
-    number ans = multiply_Karatsuba(a, b);
-    cout<<ans.is_negative<<" ";
+    number ans = long_Division(a,b,3);
+    //cout<<ans.mini_power<<" ";
     cout << "ans ";
+    cout<<ans.mini_power<<" ";
     for(auto x: ans.digits)
     {
         cout << x << " ";

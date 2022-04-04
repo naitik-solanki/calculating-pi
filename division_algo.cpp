@@ -59,8 +59,18 @@ pair<ll, ll> quorem(ll a)
 }
 
 //Considering X/Y
-number long_Division(number X, number Y)
+number long_Division(number X, number Y,int precision)
 {
+	if(precision)
+	{
+		cout<<precision<<endl;
+		for(int i=0;i<precision;i++)
+		{
+			X.digits.push_back(0);
+		}
+		X.mini_power-=precision;
+		return(long_Division(X,Y,0));
+	}
 	ll k = X.digits.size();
 	ll l = Y.digits.size();
 	// cout<<"X ";
