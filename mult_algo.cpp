@@ -161,6 +161,29 @@ number multiply_Karatsuba(number X, number Y)
     // }
     // cout<<endl;
 	ans = add(Z, P);
+	int i= ans.digits.size();
+	// cout<<"mult aglo val before = ";
+	// for(auto x: ans.digits)
+	// {
+	// 	cout<<x<<" ";
+	// }
+	// cout<<endl;
+	while(i != 1)
+	{
+		if(ans.digits[i - 1] == 0)
+		{
+			ans.digits.pop_back();
+			ans.mini_power++;
+			i--;
+		}
+		else	break;
+	}
+	// cout<<"mult aglo val after = ";
+	// for(auto x: ans.digits)
+	// {
+	// 	cout<<x<<" ";
+	// }
+	// cout<<endl;
 	reverse(ans.digits.begin(),ans.digits.end());
 	while(ans.digits.size() != 1)
 	{
@@ -171,5 +194,11 @@ number multiply_Karatsuba(number X, number Y)
 		else	break;
 	}
 	reverse(ans.digits.begin(),ans.digits.end());
+	// cout<<"mult aglo val = ";
+	// for(auto x: ans.digits)
+	// {
+	// 	cout<<x<<" ";
+	// }
+	// cout<<endl;
 	return(ans);
 }

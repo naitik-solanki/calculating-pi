@@ -14,7 +14,7 @@ number sub(number a,number b);
 number multiply_Karatsuba(number X, number Y);
 number long_Division(number X, number Y,int precision);
 void Normalize(number &X, number &Y);
-number sq_root(number a);
+number sq_root(number a,int precision);
 
 number multiply_Singlenum(number num1, number num2);
 ll equal_Length(number &num1, number &num2);

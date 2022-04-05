@@ -3,10 +3,22 @@ int main()
 {
     number a,b;
     
-    a.digits.push_back(11);
-    b.digits.push_back(3);
+    a.digits.push_back(1);
+    a.digits.push_back(102);
+    a.digits.push_back(144);
+    a.digits.push_back(0);
+    a.digits.push_back(0);
+    b.digits.push_back(179);
+    b.digits.push_back(80);
     // b.digits.push_back(25);
-    a.mini_power=0;
+    // b.digits.push_back(153);
+    // b.digits.push_back(153);
+    // b.digits.push_back(153);
+
+    
+
+    // b.digits.push_back(25);
+    a.mini_power=-2;
     b.mini_power=0;
 
     
@@ -31,10 +43,9 @@ int main()
     // // a.mini_power=0;
     // // b.mini_power=0;
     //Normalize(a,b);
-    number ans = long_Division(a,b,3);
-    //cout<<ans.mini_power<<" ";
-    cout << "ans ";
+    number ans = long_Division(a,b,0);
     cout<<ans.mini_power<<" ";
+    cout << "ans ";
     for(auto x: ans.digits)
     {
         cout << x << " ";

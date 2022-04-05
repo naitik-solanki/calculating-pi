@@ -61,16 +61,71 @@ pair<ll, ll> quorem(ll a)
 //Considering X/Y
 number long_Division(number X, number Y,int precision)
 {
-	if(precision)
+	cout<<"x = ";
+	cout<<X.mini_power<<" ";
+	for(int x: X.digits)
 	{
-		cout<<precision<<endl;
-		for(int i=0;i<precision;i++)
+		cout<<x<<" "; 
+	}
+	cout<<endl;
+	cout<<"y = ";
+	cout<<Y.mini_power<<" ";
+	for(int x: Y.digits)
+	{
+		cout<<x<<" "; 
+	}
+	cout<<endl;
+	Normalize(X,Y);
+	// cout<<"x = ";
+	// cout<<X.mini_power<<" ";
+	// for(int x: X.digits)
+	// {
+	// 	cout<<x<<" "; 
+	// }
+	// cout<<endl;
+	// cout<<"y = ";
+	// cout<<Y.mini_power<<" ";
+	// for(int x: Y.digits)
+	// {
+	// 	cout<<x<<" "; 
+	// }
+	// cout<<endl;
+	int temp = Y.mini_power;
+	if(Y.mini_power>0)
+	{
+		temp=0;
+	}
+	while (Y.mini_power<0)
+	{
+		X.digits.push_back(0);
+		Y.mini_power++;
+	}
+	
+	if(precision && (precision+temp>0))
+	{
+		for(int i=0;i<precision+temp;i++)
 		{
 			X.digits.push_back(0);
 		}
-		X.mini_power-=precision;
+		X.mini_power-=(precision+temp);
 		return(long_Division(X,Y,0));
 	}
+	cout<<"yooo"<<endl;
+
+	// cout<<"x = ";
+	// cout<<X.mini_power<<" ";
+	// for(int x: X.digits)
+	// {
+	// 	cout<<x<<" "; 
+	// }
+	// cout<<endl;
+	// cout<<"y = ";
+	// cout<<Y.mini_power<<" ";
+	// for(int x: Y.digits)
+	// {
+	// 	cout<<x<<" "; 
+	// }
+	// cout<<endl;
 	ll k = X.digits.size();
 	ll l = Y.digits.size();
 	// cout<<"X ";
@@ -107,6 +162,7 @@ number long_Division(number X, number Y,int precision)
 	}
 	for(ll i=k-l; i >=0 ; i--)
 	{
+		cout<<"sec"<<endl;
 		q.digits[i] = floor((float)(r.digits[i+l]*base + r.digits[i+l-1])/(Y.digits[l-1]));
 		//cout << "Random Q - " << q.digits[i] << " firstwala " << (r.digits[i+l]*base) <<" Secondwala "<< (r.digits[i+l-1])<< endl;
 		if(q.digits[i]>= base)
@@ -116,6 +172,7 @@ number long_Division(number X, number Y,int precision)
 		ll carry = 0;
 		for(ll j = 0; j <= l-1;j++)
 		{
+			cout<<"fir"<<endl;
 			ll tmp = r.digits[i+j] - (q.digits[i] * Y.digits[j]) + carry;
 			pair<ll, ll> Quo_rem = quorem(tmp);
 			carry = Quo_rem.first;
@@ -128,11 +185,14 @@ number long_Division(number X, number Y,int precision)
 		r.digits[i+l] =  r.digits[i+l] + carry;
 		while(r.digits[i+l] < 0) // Will run atmost twice
 		{
+			//cout<<"ye"<<endl;
 			carry = 0;
 			for(ll j=0; j <= l-1 ; j++)
 			{
+				//cout<<"Ghusa ander"<<endl;
 				ll tmp = r.digits[i+j] - ( Y.digits[j]) + carry;
 				pair<ll, ll> Quo_rem = quorem(tmp);
+				cout << "temp - " << temp << endl;
 				carry = Quo_rem.first;
 				r.digits[i+j] = Quo_rem.second;
 				// carry = tmp/base;
@@ -141,13 +201,13 @@ number long_Division(number X, number Y,int precision)
 			}
 			r.digits[i+l] = r.digits[i+l] + carry;
 			q.digits[i] = q.digits[i] - 1;
-			//cout << "Changed r3 - " << r.digits[i+l] << endl;
+			cout << "Changed remainder - " << r.digits[i+l] << endl;
 		}
 	}
 	//Removing leading zeroes..
 	while(q.digits.size() != 1)
 	{
-		if(q.digits[q.digits.size() - 1] == 0)
+		if(q.digits.back() == 0)
 		{
 			q.digits.pop_back();
 		}
