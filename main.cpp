@@ -3,20 +3,9 @@ int main()
 {
     number a,b;
     
-    a.digits.push_back(22);
-    a.digits.push_back(74);
-    a.digits.push_back(82);
-    a.digits.push_back(148);
-    a.digits.push_back(255);
-    b.digits.push_back(4);
-    b.digits.push_back(184);
-    b.digits.push_back(164);
-    b.digits.push_back(174);
-    b.digits.push_back(25);
-    b.digits.push_back(0);
-    b.digits.push_back(0);
-    b.digits.push_back(3);
-    b.digits.push_back(128);
+    a.digits.push_back(101);
+    a.digits.push_back(128);
+    b.digits.push_back(2);
 
 
     // b.digits.push_back(25);
@@ -27,8 +16,8 @@ int main()
     
 
     // b.digits.push_back(25);
-    a.mini_power=-4;
-    b.mini_power=-8;
+    a.mini_power=-1;
+    b.mini_power=0;
 
     
     // a.digits.clear();
@@ -52,7 +41,7 @@ int main()
     // // a.mini_power=0;
     // // b.mini_power=0;
     //Normalize(a,b);
-    number ans = long_Division(a,b,2);
+    number ans = borwein(10);
     cout<<ans.mini_power<<" ";
     cout << "ans ";
     for(auto x: ans.digits)

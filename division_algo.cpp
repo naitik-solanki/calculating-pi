@@ -58,6 +58,14 @@ pair<ll, ll> quorem(ll a)
 	return(ans);
 }
 
+void truncate(number &n, int precision)
+{
+	for(ll i=0;i<n.mini_power - precision;i++)
+	{
+		n.digits.pop_back();
+	}
+}
+
 //Considering X/Y
 number long_Division(number X, number Y,int precision)
 {
@@ -76,6 +84,7 @@ number long_Division(number X, number Y,int precision)
 	// }
 	// cout<<endl;
 	Normalize(X,Y);
+	// cout << "Normalize ke baad " << endl;
 	// cout<<"x = ";
 	// cout<<X.mini_power<<" ";
 	// for(int x: X.digits)
@@ -102,13 +111,13 @@ number long_Division(number X, number Y,int precision)
 		Y.mini_power++;
 	}
 	
-	if(precision && (precision+temp>0))
+	if(precision)
 	{
-		for(int i=0;i<precision+temp;i++)
+		for(int i=0;i<precision;i++)
 		{
 			X.digits.push_back(0);
 		}
-		X.mini_power-=(precision+temp);
+		X.mini_power-=(precision);
 		return(long_Division(X,Y,0));
 	}
 	while(X.mini_power>0)
@@ -116,7 +125,7 @@ number long_Division(number X, number Y,int precision)
 		X.digits.push_back(0);
 		X.mini_power--;
 	}
-	cout<<"yooo"<<endl;
+	//cout<<"yooo"<<endl;
 
 	// cout<<"x = ";
 	// cout<<X.mini_power<<" ";
@@ -222,5 +231,9 @@ number long_Division(number X, number Y,int precision)
 		else	break;
 	}
 	reverse(q.digits.begin(),q.digits.end());
+	if(abs(q.mini_power) > precision)
+	{
+		truncate(q, precision);
+	}
 	return q;
 }
