@@ -1,5 +1,5 @@
 #include"arithmetic.hpp"
-number sub(number a,number b)
+number sub(number a,number b,ll base)
 {
     if(a.mini_power!=b.mini_power)
     {
@@ -24,7 +24,7 @@ number sub(number a,number b)
     ans.mini_power=a.mini_power;
     if(a.digits.size()<b.digits.size())
     {
-        ans=sub(b,a);
+        ans=sub(b,a, base);
         ans.is_negative=true;
         return ans;
     }
@@ -34,7 +34,7 @@ number sub(number a,number b)
         {
             if(a.digits[j]<b.digits[j])
             {
-                ans=sub(b,a);
+                ans=sub(b,a, base);
                 ans.is_negative=true;
                 return ans;
             }

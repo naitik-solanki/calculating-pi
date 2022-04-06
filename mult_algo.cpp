@@ -23,7 +23,7 @@ ll equal_Length(number &num1, number &num2)
 	return(len2);
 }
 
-number multiply_Singlenum(number num1, number num2) //Arguments wll contain only single entry
+number multiply_Singlenum(number num1, number num2,ll base) //Arguments wll contain only single entry
 {
 	number ans;
 	if((num1.digits[0] * num2.digits[0])/base != 0)
@@ -35,7 +35,7 @@ number multiply_Singlenum(number num1, number num2) //Arguments wll contain only
 	return(ans);
 }
 
-number multiply_Karatsuba(number X, number Y)
+number multiply_Karatsuba(number X, number Y,ll base)
 {
 	//Making the vectors of equal length
 	//int power = equal_Mini_Power(X, Y);
@@ -51,7 +51,7 @@ number multiply_Karatsuba(number X, number Y)
 		ans.mini_power = 0;
 		return(ans);
 	}
-    if (n == 1) return multiply_Singlenum(X, Y);
+    if (n == 1) return multiply_Singlenum(X, Y, base);
 
     // for(auto x:X.digits)
     // {
@@ -116,19 +116,19 @@ number multiply_Karatsuba(number X, number Y)
     // 	cout<<y<<" ";
     // }
     // cout<<endl;
-	number P = multiply_Karatsuba(first_halfX, first_halfY);
-    number Q = multiply_Karatsuba(second_halfX, second_halfY);
-	number temp1 = add(first_halfX, second_halfX);
-	number temp2 = add(first_halfY, second_halfY);
-    number prod = multiply_Karatsuba(temp1, temp2);
+	number P = multiply_Karatsuba(first_halfX, first_halfY, base);
+    number Q = multiply_Karatsuba(second_halfX, second_halfY, base);
+	number temp1 = add(first_halfX, second_halfX, base);
+	number temp2 = add(first_halfY, second_halfY, base);
+    number prod = multiply_Karatsuba(temp1, temp2, base);
 	// cout<<"prod ";
 	// for(auto x:prod.digits)
     // {
     // 	cout<<x<<" ";
     // }
     // cout<<endl;
-	number temp = sub(prod, P);
-	number R = sub(temp, Q);
+	number temp = sub(prod, P, base);
+	number R = sub(temp, Q, base);
     //Forming the answer.... by P*B^2m + R*B^m + Q ...
 	// cout << "Split - " << split << endl;
 	split = n/2;
@@ -153,14 +153,14 @@ number multiply_Karatsuba(number X, number Y)
     // 	cout<<x<<" ";
     // }
     // cout<<endl;
-	number Z = add(Q, R);
+	number Z = add(Q, R, base);
 	// cout << "Z digits ";
 	// for(auto x:Z.digits)
     // {
     // 	cout<<x<<" ";
     // }
     // cout<<endl;
-	ans = add(Z, P);
+	ans = add(Z, P, base);
 	int i= ans.digits.size();
 	// cout<<"mult aglo val before = ";
 	// for(auto x: ans.digits)

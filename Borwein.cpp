@@ -1,6 +1,7 @@
 #include"arithmetic.hpp"
-number borwein(int precision)
+number borwein(int prec_base,ll base)
 {
+    ll no_ofiterations = log2(prec_base) + 3;
     number two;
     two.is_negative=0;
     two.digits.push_back(2);
@@ -9,59 +10,20 @@ number borwein(int precision)
     one.is_negative=0;
     one.digits.push_back(1);
     one.mini_power=0;
-    // cout << "two " << endl;
-    // cout << "an mini power - " << two.mini_power << endl;
-    // for(auto x: two.digits)
-    // {
-    //     cout << x << " ";
-    // }
-    // cout << endl;
-    number an = sq_root(two,precision);
-    number bn = sub(two ,two);
-    number pn = add(two,an);
-    // cout << "an - " << endl;
-    // cout << "an mini power - " << an.mini_power << endl;
-    // for(auto x: an.digits)
-    // {
-    //     cout << x << " ";
-    // }
-    // cout << endl;
+    number an = sq_root(two,prec_base, base);
+    number bn = sub(two ,two, base);
+    number pn = add(two,an, base);
     int i=0;
-    cout << "phuch gye yha tk" << endl;
-    while(i<10)
+    while(i < no_ofiterations)
     {
-        cout << "1" << endl;
-        number sqrt_a = sq_root(an,precision);
-        // cout << "sqrt - " << endl;
-        // cout << "sqrt mini power - " << sqrt_a.mini_power << endl;
-        // for(auto x: sqrt_a.digits)
-        // {
-        //     cout << x << " ";
-        // }
-        // cout << endl;
-        //cout << "2" << endl;
-        bn= long_Division(multiply_Karatsuba(add(one,bn),sqrt_a),add(an,bn),precision);
-        //cout << "sqrt_a " << endl;
-        //cout << "mini power "<< sqrt_a.mini_power << endl;
-        // for(auto x: sqrt_a.digits)
-        // {
-        //     cout << x << " ";
-        // }
-        // cout << endl;
-        // cout << "3" << endl;
-        an = long_Division(add(sqrt_a,long_Division(one,sqrt_a,2)),two,precision);
-        //cout << "4" << endl;
-        number temp = multiply_Karatsuba(multiply_Karatsuba(add(one,an),pn),bn);
-        //cout << "temp " << endl;
-       // cout << "mini power "<< temp.mini_power << endl;
-        // for(auto x: temp.digits)
-        // {
-        //     cout << x << " ";
-        // }
-        // cout << endl;
-        pn =long_Division(multiply_Karatsuba(multiply_Karatsuba(add(one,an),pn),bn),add(one,bn),precision);
-        //cout << "5" << endl;
+        cout << "Ruko Vai ... " << endl;
+        number sqrt_a = sq_root(an,prec_base, base);
+        bn= long_Division(multiply_Karatsuba(add(one,bn, base),sqrt_a, base),add(an,bn, base),prec_base, base);
+        an = long_Division(add(sqrt_a,long_Division(one,sqrt_a,prec_base, base), base),two,prec_base, base);
+        number temp = multiply_Karatsuba(multiply_Karatsuba(add(one,an, base),pn, base),bn, base);
+        pn = long_Division(multiply_Karatsuba(multiply_Karatsuba(add(one,an, base),pn, base),bn, base),add(one,bn, base),prec_base, base);
         i++;
     }
+    
     return pn;
 }

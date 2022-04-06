@@ -1,5 +1,5 @@
 #include"arithmetic.hpp"
-number add(number a,number b)
+number add(number a,number b,ll base)
 {
 
    if(a.mini_power!=b.mini_power)

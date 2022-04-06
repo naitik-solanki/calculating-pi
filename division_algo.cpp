@@ -4,7 +4,7 @@
 //q and r are quotient and remainder respectively
 //Reverse digits of X and Y
 
-void Normalize(number &X, number &Y)
+void Normalize(number &X, number &Y,ll base)
 {
 	//Normalization check
 	ll w = (long long)(log10(base)/log10(2.0));
@@ -20,18 +20,18 @@ void Normalize(number &X, number &Y)
 		{
 			//Multiply both numbers X and Y by appropriate 2^w' where 0<=w'<w
 			tmp.digits[0]*=2;
-			tmp1 = multiply_Karatsuba(Y, tmp);
+			tmp1 = multiply_Karatsuba(Y, tmp, base);
 			//w_dash ++;
 		}
 		//cout << "Multiplied with - " << tmp.digits[0] << endl;
-		X = multiply_Karatsuba(X, tmp);
-		Y = multiply_Karatsuba(Y, tmp);
+		X = multiply_Karatsuba(X, tmp, base);
+		Y = multiply_Karatsuba(Y, tmp, base);
 		return;
 	}
 	return;
 }
 
-pair<ll, ll> quorem(ll a)
+pair<ll, ll> quorem(ll a,ll base)
 {
 	pair<ll, ll> ans;
 	if(a < 0)
@@ -58,47 +58,20 @@ pair<ll, ll> quorem(ll a)
 	return(ans);
 }
 
-void truncate(number &n, int precision)
-{
-	for(ll i=0;i<n.mini_power - precision;i++)
-	{
-		n.digits.pop_back();
-	}
-}
+// void truncate(number &n, int precision)
+// {
+// 	ll k = abs(n.mini_power) - precision;
+// 	while(abs(n.mini_power) > precision)
+// 	{
+// 		n.digits.pop_back();
+// 		n.mini_power++;
+// 	}
+// }
 
 //Considering X/Y
-number long_Division(number X, number Y,int precision)
+number long_Division(number X, number Y,int precision,ll base)
 {
-	// cout<<"x = ";
-	// cout<<X.mini_power<<" ";
-	// for(int x: X.digits)
-	// {
-	// 	cout<<x<<" "; 
-	// }
-	// cout<<endl;
-	// cout<<"y = ";
-	// cout<<Y.mini_power<<" ";
-	// for(int x: Y.digits)
-	// {
-	// 	cout<<x<<" "; 
-	// }
-	// cout<<endl;
-	Normalize(X,Y);
-	// cout << "Normalize ke baad " << endl;
-	// cout<<"x = ";
-	// cout<<X.mini_power<<" ";
-	// for(int x: X.digits)
-	// {
-	// 	cout<<x<<" "; 
-	// }
-	// cout<<endl;
-	// cout<<"y = ";
-	// cout<<Y.mini_power<<" ";
-	// for(int x: Y.digits)
-	// {
-	// 	cout<<x<<" "; 
-	// }
-	// cout<<endl;
+	Normalize(X, Y, base);
 	int temp = Y.mini_power;
 	if(Y.mini_power>0)
 	{
@@ -106,7 +79,6 @@ number long_Division(number X, number Y,int precision)
 	}
 	while (Y.mini_power<0)
 	{
-		//cout<<"ha ha"<<endl;
 		X.digits.push_back(0);
 		Y.mini_power++;
 	}
@@ -118,44 +90,26 @@ number long_Division(number X, number Y,int precision)
 			X.digits.push_back(0);
 		}
 		X.mini_power-=(precision);
-		return(long_Division(X,Y,0));
+		number q=long_Division(X,Y,0, base);
+		int i=0;
+		while((abs(q.mini_power) > precision) && (q.mini_power<0))
+		{
+			//cout<<"ha ha yhi haga"<<endl;
+			// cout<<abs(q.mini_power)<<" "<<precision<<endl;
+			// cout<< q.digits.size()<<" "<<i<<" "<<q.digits.size()-1 -i <<endl;
+			q.digits.pop_back();
+			q.mini_power++;
+			i++;
+		}
+		return(q);
 	}
 	while(X.mini_power>0)
 	{
 		X.digits.push_back(0);
 		X.mini_power--;
 	}
-	//cout<<"yooo"<<endl;
-
-	// cout<<"x = ";
-	// cout<<X.mini_power<<" ";
-	// for(int x: X.digits)
-	// {
-	// 	cout<<x<<" "; 
-	// }
-	// cout<<endl;
-	// cout<<"y = ";
-	// cout<<Y.mini_power<<" ";
-	// for(int x: Y.digits)
-	// {
-	// 	cout<<x<<" "; 
-	// }
-	// cout<<endl;
 	ll k = X.digits.size();
 	ll l = Y.digits.size();
-	//cout<<k<<" "<<l<<endl;
-	// cout<<"X ";
-	// for(auto x:X.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
-	// cout<<"Y ";
-	// for(auto x:Y.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
 	reverse(X.digits.begin(),X.digits.end());
 	reverse(Y.digits.begin(),Y.digits.end());
 	number r, q;
@@ -167,21 +121,13 @@ number long_Division(number X, number Y,int precision)
 		r.digits.push_back(X.digits[i]);
 	}
 	r.digits.push_back(0);
-	// for(auto x: Y.digits)
-	// {
-	// 	cout << x << " ";
-	// }
-	// cout << endl;
-	//cout<<"hello"<<endl;
 	for(ll i=k-l; i >=0 ; i--)
 	{
 		q.digits.push_back(0);
 	}
 	for(ll i=k-l; i >=0 ; i--)
 	{
-		//cout<<"sec"<<endl;
 		q.digits[i] = floor((float)(r.digits[i+l]*base + r.digits[i+l-1])/(Y.digits[l-1]));
-		//cout << "Random Q - " << q.digits[i] << " firstwala " << (r.digits[i+l]*base) <<" Secondwala "<< (r.digits[i+l-1])<< endl;
 		if(q.digits[i]>= base)
 		{
 			q.digits[i] = base -1;
@@ -189,40 +135,28 @@ number long_Division(number X, number Y,int precision)
 		ll carry = 0;
 		for(ll j = 0; j <= l-1;j++)
 		{
-			//cout<<"fir"<<endl;
 			ll tmp = r.digits[i+j] - (q.digits[i] * Y.digits[j]) + carry;
-			pair<ll, ll> Quo_rem = quorem(tmp);
+			pair<ll, ll> Quo_rem = quorem(tmp, base);
 			carry = Quo_rem.first;
 			r.digits[i+j] = Quo_rem.second;
-			// carry = tmp/base;
-			//cout << "temp - " << tmp << endl;
-			// r.digits[i+j] = modu(tmp);
-			//cout << "Changed r1 - " << r.digits[i+j] << endl;
 		}
 		r.digits[i+l] =  r.digits[i+l] + carry;
 		while(r.digits[i+l] < 0) // Will run atmost twice
 		{
-			//cout<<"ye"<<endl;
 			carry = 0;
 			for(ll j=0; j <= l-1 ; j++)
 			{
-				//cout<<"Ghusa ander"<<endl;
 				ll tmp = r.digits[i+j] + ( Y.digits[j]) + carry;
-				pair<ll, ll> Quo_rem = quorem(tmp);
-				//cout << "temp - " << temp << endl;
+				pair<ll, ll> Quo_rem = quorem(tmp, base);
 				carry = Quo_rem.first;
 				r.digits[i+j] = Quo_rem.second;
-				// carry = tmp/base;
-				// r.digits[i+j] = modu(tmp);
-				//cout << "Changed r2 - " << r.digits[i+j] << endl;
 			}
 			r.digits[i+l] = r.digits[i+l] + carry;
 			q.digits[i] = q.digits[i] - 1;
-			//cout << "Changed remainder - " << r.digits[i+l] << endl;
 		}
 	}
 	//Removing leading zeroes..
-	while(q.digits.size() != 1)
+	while(q.digits.size() > 1)
 	{
 		if(q.digits.back() == 0)
 		{
@@ -231,9 +165,5 @@ number long_Division(number X, number Y,int precision)
 		else	break;
 	}
 	reverse(q.digits.begin(),q.digits.end());
-	if(abs(q.mini_power) > precision)
-	{
-		truncate(q, precision);
-	}
 	return q;
 }
