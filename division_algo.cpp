@@ -7,25 +7,23 @@
 void Normalize(number &X, number &Y,ll base)
 {
 	//Normalization check
-	ll w = (long long)(log10(base)/log10(2.0));
-	//cout << "w - " << w << endl;
-	// ll w_dash = 0;
-	if(Y.digits[0] < pow(2, w-1))
+
+	if(Y.digits[0]*Y.digits[0] < base)
 	{
 		number tmp, tmp1;
 		tmp1 = Y;
 		tmp.digits.push_back(1);
 		tmp.mini_power = 0;
-		while (tmp1.digits[0] < pow(2, w-1))
+		while (tmp1.digits[0]*tmp.digits[0] < base)
 		{
 			//Multiply both numbers X and Y by appropriate 2^w' where 0<=w'<w
 			tmp.digits[0]*=2;
-			tmp1 = multiply_Karatsuba(Y, tmp, base);
+			tmp1 = mult(Y, tmp, base);
 			//w_dash ++;
 		}
 		//cout << "Multiplied with - " << tmp.digits[0] << endl;
-		X = multiply_Karatsuba(X, tmp, base);
-		Y = multiply_Karatsuba(Y, tmp, base);
+		X = mult(X, tmp, base);
+		Y = mult(Y, tmp, base);
 		return;
 	}
 	return;

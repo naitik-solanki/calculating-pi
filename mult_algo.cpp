@@ -38,7 +38,6 @@ number multiply_Singlenum(number num1, number num2,ll base) //Arguments wll cont
 number multiply_Karatsuba(number X, number Y,ll base)
 {
 	//Making the vectors of equal length
-	//int power = equal_Mini_Power(X, Y);
 	int n = equal_Length(X, Y);
 	number ans;
 	if(X.is_negative && Y.is_negative)	ans.is_negative = false;
@@ -53,16 +52,9 @@ number multiply_Karatsuba(number X, number Y,ll base)
 	}
     if (n == 1) return multiply_Singlenum(X, Y, base);
 
-    // for(auto x:X.digits)
-    // {
-    //     cout<<x<<" ";
-    // }
-    // cout<<endl;
-	//Splitting the number into two
 	int split;
 	if(n%2 == 1)	split = (n+1)/2;
 	else	split = (n)/2; 
-	// cout << "Split - " << split << endl;
 	number first_halfX, second_halfX;
 	
 	first_halfX.mini_power = X.mini_power;
@@ -75,9 +67,6 @@ number multiply_Karatsuba(number X, number Y,ll base)
 	{
 		second_halfX.digits.push_back(X.digits[i]);
 	}
-	// first_halfX.digits.assign(X.digits.begin(), X.digits.begin() + split);
-	// second_halfX.digits.assign(X.digits.begin() + split, X.digits.end());
-
 	number first_halfY, second_halfY;
 	first_halfY.mini_power = Y.mini_power;
 	second_halfY.mini_power = Y.mini_power;
@@ -89,85 +78,19 @@ number multiply_Karatsuba(number X, number Y,ll base)
 	{
 		second_halfY.digits.push_back(Y.digits[i]);
 	}
-	// first_halfY.digits.assign(Y.digits.begin(), Y.digits.begin() + split);
-	// second_halfY.digits.assign(Y.digits.begin() + split , Y.digits.end());
-
-	// cout<<"First half of X ";
-	// for(auto x:first_halfX.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
-	// cout<<"Second half of X ";
-	// for(auto x:second_halfX.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
-	// cout<<"First half of Y ";
-	// for(auto y:first_halfY.digits)
-    // {
-    // 	cout<<y<<" ";
-    // }
-    // cout<<endl;
-	// cout<<"Second half of Y ";
-	// for(auto y:second_halfY.digits)
-    // {
-    // 	cout<<y<<" ";
-    // }
-    // cout<<endl;
 	number P = multiply_Karatsuba(first_halfX, first_halfY, base);
     number Q = multiply_Karatsuba(second_halfX, second_halfY, base);
 	number temp1 = add(first_halfX, second_halfX, base);
 	number temp2 = add(first_halfY, second_halfY, base);
     number prod = multiply_Karatsuba(temp1, temp2, base);
-	// cout<<"prod ";
-	// for(auto x:prod.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
 	number temp = sub(prod, P, base);
 	number R = sub(temp, Q, base);
-    //Forming the answer.... by P*B^2m + R*B^m + Q ...
-	// cout << "Split - " << split << endl;
 	split = n/2;
 	P.mini_power =P.mini_power +  2*split;
 	R.mini_power = R.mini_power + split;	
-	// cout<<P.mini_power<<" "<<R.mini_power<<endl;
-	// cout<<"P ";
-	// for(auto x:P.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
-	// cout<<"Q ";
-	// for(auto x:Q.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
-	// cout<<"R ";
-	// for(auto x:R.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
 	number Z = add(Q, R, base);
-	// cout << "Z digits ";
-	// for(auto x:Z.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
 	ans = add(Z, P, base);
 	int i= ans.digits.size();
-	// cout<<"mult aglo val before = ";
-	// for(auto x: ans.digits)
-	// {
-	// 	cout<<x<<" ";
-	// }
-	// cout<<endl;
 	while(i != 1)
 	{
 		if(ans.digits[i - 1] == 0)
@@ -178,12 +101,6 @@ number multiply_Karatsuba(number X, number Y,ll base)
 		}
 		else	break;
 	}
-	// cout<<"mult aglo val after = ";
-	// for(auto x: ans.digits)
-	// {
-	// 	cout<<x<<" ";
-	// }
-	// cout<<endl;
 	reverse(ans.digits.begin(),ans.digits.end());
 	while(ans.digits.size() != 1)
 	{
@@ -194,11 +111,5 @@ number multiply_Karatsuba(number X, number Y,ll base)
 		else	break;
 	}
 	reverse(ans.digits.begin(),ans.digits.end());
-	// cout<<"mult aglo val = ";
-	// for(auto x: ans.digits)
-	// {
-	// 	cout<<x<<" ";
-	// }
-	// cout<<endl;
 	return(ans);
 }

@@ -17,7 +17,7 @@ number sq_root(number a,int prec_base,ll base)
         number temp = long_Division(a,guess,prec_base, base);
         number prev = guess;
         number n = add(temp,guess, base);
-        guess = multiply_Karatsuba(half,add(temp,guess, base), base);
+        guess = mult(half,add(temp,guess, base), base);
         i++;
         a=temp3;
     }

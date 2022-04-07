@@ -18,10 +18,10 @@ number borwein(int prec_base,ll base)
     {
         cout << "Ruko Vai ... " << endl;
         number sqrt_a = sq_root(an,prec_base, base);
-        bn= long_Division(multiply_Karatsuba(add(one,bn, base),sqrt_a, base),add(an,bn, base),prec_base, base);
+        bn= long_Division(mult(add(one,bn, base),sqrt_a, base),add(an,bn, base),prec_base, base);
         an = long_Division(add(sqrt_a,long_Division(one,sqrt_a,prec_base, base), base),two,prec_base, base);
-        number temp = multiply_Karatsuba(multiply_Karatsuba(add(one,an, base),pn, base),bn, base);
-        pn = long_Division(multiply_Karatsuba(multiply_Karatsuba(add(one,an, base),pn, base),bn, base),add(one,bn, base),prec_base, base);
+        number temp = mult(mult(add(one,an, base),pn, base),bn, base);
+        pn = long_Division(mult(mult(add(one,an, base),pn, base),bn, base),add(one,bn, base),prec_base, base);
         i++;
     }
     
