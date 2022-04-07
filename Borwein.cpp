@@ -1,7 +1,6 @@
 #include"arithmetic.hpp"
 number borwein(int prec_base,ll base)
 {
-    cout << "Precision wrt base = " << prec_base << "Base - " << base << endl;
     ll no_ofiterations = log2(prec_base) + 3; 
     number two;
     two.is_negative=0;

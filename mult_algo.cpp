@@ -1,27 +1,6 @@
 #include"arithmetic.hpp"
 
-ll equal_Length(number &num1, number &num2)
-{
-	ll len1 = num1.digits.size();
-	ll len2 = num2.digits.size();
-	if(len1 < len2)
-	{
-		for(ll i =0;i<len2-len1;i++)
-		{
-			num1.digits.insert(num1.digits.begin(), 0);
-		}
-		return(len2);
-	}
-	else if (len2 < len1)
-	{
-		for(ll i =0;i<len1-len2;i++)
-		{
-			num2.digits.insert(num2.digits.begin(), 0);
-		}
-		return(len1);
-	}
-	return(len2);
-}
+
 
 number multiply_Singlenum(number num1, number num2,ll base) //Arguments wll contain only single entry
 {
@@ -52,11 +31,11 @@ number multiply_Karatsuba(number X, number Y,ll base)
 	}
     if (n == 1) return multiply_Singlenum(X, Y, base);
 
+	//Calculating the split and splitting the vectors into two halves for both the numbers
 	int split;
 	if(n%2 == 1)	split = (n+1)/2;
 	else	split = (n)/2; 
 	number first_halfX, second_halfX;
-	
 	first_halfX.mini_power = X.mini_power;
 	second_halfX.mini_power = X.mini_power;
 	for(ll i=0;i<split;i++)
@@ -78,6 +57,8 @@ number multiply_Karatsuba(number X, number Y,ll base)
 	{
 		second_halfY.digits.push_back(Y.digits[i]);
 	}
+	//Recursive calls to calculate P, Q and R for the main equation
+	//P*B^2m + R*B^m + Q ..... m - split value
 	number P = multiply_Karatsuba(first_halfX, first_halfY, base);
     number Q = multiply_Karatsuba(second_halfX, second_halfY, base);
 	number temp1 = add(first_halfX, second_halfX, base);
@@ -90,6 +71,8 @@ number multiply_Karatsuba(number X, number Y,ll base)
 	R.mini_power = R.mini_power + split;	
 	number Z = add(Q, R, base);
 	ans = add(Z, P, base);
+
+	//Removing leading and trailing zeroes from the answer
 	int i= ans.digits.size();
 	while(i != 1)
 	{

@@ -1,17 +1,4 @@
 #include"arithmetic.hpp"
-number num_tobase10(ll n)
-{
-	number ans;
-	ans.is_negative = false;
-	ans.mini_power = 0;
-	while(n)
-	{
-		ans.digits.push_back(n%10);
-		n/=10;
-	}
-	reverse(ans.digits.begin(), ans.digits.end());
-	return(ans);
-}
 
 string convert_toDecimal(number n, int precision,ll base)
 {
