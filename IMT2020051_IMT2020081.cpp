@@ -10,7 +10,7 @@ int main()
     cin >> option >> length >> my_base;
     // Length has been increased by 3 because due to precision error.. last two digits might differ with
     // the original answer.. 
-    length+=3;
+    length+=4;
     ll base = 1;
     number ans;
     for(ll i=0;i< my_base;i++)
@@ -24,7 +24,7 @@ int main()
         case(1):
             {
                 ans = borwein(prec_base, base);
-                cout << convert_toDecimal(ans, length-2, base) << endl;
+                cout << convert_toDecimal(ans, length-3, base) << endl;
                 break;
             }
         case(2):
@@ -34,7 +34,7 @@ int main()
                 a.mini_power = 0;
                 a.is_negative = false;
                 ans = sq_root(a,prec_base, base);
-                cout << convert_toDecimal(ans, length-2, base) << endl;
+                cout << convert_toDecimal(ans, length-3, base) << endl;
                 break;
             }
         default:
