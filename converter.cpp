@@ -47,7 +47,7 @@ string convert_toDecimal(number n, int precision,ll base)
 		final.push_back('0'+ans.digits[i]);
 	}
 	final.push_back('.');
-	for(int i=ans.digits.size()+ans.mini_power; i<ans.digits.size();i++)
+	for(int i=ans.digits.size()+ans.mini_power; i<precision;i++)
 	{
 		final.push_back('0'+ans.digits[i]);
 	}

@@ -1,7 +1,8 @@
 #include"arithmetic.hpp"
 number borwein(int prec_base,ll base)
 {
-    ll no_ofiterations = log2(prec_base) + 3;
+    cout << "Precision wrt base = " << prec_base << "Base - " << base << endl;
+    ll no_ofiterations = log2(prec_base) + 3; 
     number two;
     two.is_negative=0;
     two.digits.push_back(2);
@@ -16,7 +17,7 @@ number borwein(int prec_base,ll base)
     int i=0;
     while(i < no_ofiterations)
     {
-        cout << "Ruko Vai ... " << endl;
+        //cout << "Ruko Vai ... " << endl;
         number sqrt_a = sq_root(an,prec_base, base);
         bn= long_Division(mult(add(one,bn, base),sqrt_a, base),add(an,bn, base),prec_base, base);
         an = long_Division(add(sqrt_a,long_Division(one,sqrt_a,prec_base, base), base),two,prec_base, base);
