@@ -1,11 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-struct number
+struct number// here we have created a struct which will have our number with digits stored in a vector and storing the power of lsb
 {
     vector<int>digits;
     int mini_power;
-    bool is_negative;
+    bool is_negative;//addtional field if number is negative
 };
 number add(number a,number b, ll base);
 number sub(number a,number b, ll base);

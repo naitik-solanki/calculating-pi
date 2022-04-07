@@ -1,6 +1,6 @@
 #include"arithmetic.hpp"
 
-number sq_root(number a,int prec_base,ll base)
+number sq_root(number a,int prec_base,ll base)// standart implementation of newtons algorithm
 {
     ll no_ofiterations = log2(prec_base) + 3;
     number half;

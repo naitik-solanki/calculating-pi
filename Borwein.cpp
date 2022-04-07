@@ -1,5 +1,5 @@
 #include"arithmetic.hpp"
-number borwein(int prec_base,ll base)
+number borwein(int prec_base,ll base)//this is the direct implementation of the algorithm
 {
     ll no_ofiterations = log2(prec_base) + 3; 
     number two;

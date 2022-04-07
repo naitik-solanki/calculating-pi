@@ -18,7 +18,7 @@ number long_Division(number X, number Y,int precision,ll base)
 		Y.mini_power++;
 	}
 
-	if(precision)
+	if(precision)// to add precision , we add zeros so that we can get the quotient till that digit 
 	{
 		for(int i=0;i<precision;i++)
 		{

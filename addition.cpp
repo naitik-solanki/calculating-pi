@@ -1,8 +1,7 @@
 #include"arithmetic.hpp"
 number add(number a,number b,ll base)
 {
-
-   if(a.mini_power!=b.mini_power)
+   if(a.mini_power!=b.mini_power)//we make both the numbe of same size after decimal point
     {
        if(a.mini_power>b.mini_power)
        {
@@ -23,37 +22,30 @@ number add(number a,number b,ll base)
     }
     number ans;
     ans.mini_power=a.mini_power;
-    //cout<<a.mini_power<<' '<<b.mini_power<<' '<<ans.mini_power<<endl;
     int carry = 0;
     int p=a.digits.size()-1,q=b.digits.size()-1;
-    for(;(p>=0) &&(q>=0);p--,q--)
+    for(;(p>=0) &&(q>=0);p--,q--)//this loop adds the ith digit of p to ith digit of q
     {
-       // cout<<a.digits[p]<<' '<<b.digits[q]<<" "<<endl;
         ans.digits.push_back((a.digits[p]+b.digits[q]+carry)%base);
         carry = (a.digits[p]+b.digits[q]+carry)/base;
     }
-    // for(auto x:ans.digits)
-    // {
-    //     cout<<x<<" ";
-    // }
-    // cout<<endl;
-    while(p>-1)
+    while(p>-1)// if number of digits in p>number of digits in q, the digits left will be added to final answer here 
     {
         ans.digits.push_back((a.digits[p]+carry)%base);
         carry = (a.digits[p]+carry)/base;
         p--;
     }
-    while(q>-1)
+    while(q>-1) // vice verse of the above
     {
         ans.digits.push_back((b.digits[q]+carry)%base);
         carry = (b.digits[q]+carry)/base;
         q--;
     }
-    if(carry)
+    if(carry)//adding the last carry to my answer
     {
         ans.digits.push_back(carry);
     }
-    for(int i=ans.digits.size()-1;i>0;i--)
+    for(int i=ans.digits.size()-1;i>0;i--)//removing preceding zeros for efficiency
     {
         if(ans.digits[i]==0)
         {
@@ -65,23 +57,5 @@ number add(number a,number b,ll base)
         }
     }
     reverse(ans.digits.begin(),ans.digits.end());
-    // cout<<"a ";
-	// for(auto x:a.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout << endl;
-    // cout<<"b ";
-	// for(auto x:b.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
-    // cout<<"add inter ";
-	// for(auto x:ans.digits)
-    // {
-    // 	cout<<x<<" ";
-    // }
-    // cout<<endl;
     return ans;
 }

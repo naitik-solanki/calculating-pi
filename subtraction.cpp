@@ -1,5 +1,5 @@
 #include"arithmetic.hpp"
-number sub(number a,number b,ll base)
+number sub(number a,number b,ll base)//similar to addition with a negative carry and additional component if a<b i.e will also work for negative numbers
 {
     if(a.mini_power!=b.mini_power)
     {
